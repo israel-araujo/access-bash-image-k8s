@@ -1,0 +1,59 @@
+""""
+warning
+
+exec bash inside pod on virtual machine minikube on aws-ec2 instance
+""""
+
+apiserver: Running
+kubeconfig: Configured
+
+ubuntu@ip-10-235-0-199:~$ kubectl get pods
+NAME                              READY   STATUS    RESTARTS   AGE
+hello-minikube-6ddfcc9757-ws9hs   1/1     Running   1          6h11m
+ubuntu@ip-10-235-0-199:~$ kubectl get pods
+NAME                              READY   STATUS    RESTARTS   AGE
+hello-minikube-6ddfcc9757-29drz   0/1     Pending   0          21s
+hello-minikube-6ddfcc9757-4q2cx   0/1     Pending   0          21s
+hello-minikube-6ddfcc9757-l24s4   0/1     Pending   0          21s
+hello-minikube-6ddfcc9757-qjngw   0/1     Pending   0          21s
+hello-minikube-6ddfcc9757-trmg4   0/1     Pending   0          21s
+hello-minikube-6ddfcc9757-ws9hs   1/1     Running   1          6h11m
+hello-minikube-6ddfcc9757-xbvvw   0/1     Pending   0          21s
+ubuntu@ip-10-235-0-199:~$ kubectl get pods --watch
+NAME                              READY   STATUS    RESTARTS   AGE
+hello-minikube-6ddfcc9757-29drz   0/1     Pending   0          45s
+hello-minikube-6ddfcc9757-4q2cx   0/1     Pending   0          45s
+hello-minikube-6ddfcc9757-l24s4   0/1     Pending   0          45s
+hello-minikube-6ddfcc9757-qjngw   0/1     Pending   0          45s
+hello-minikube-6ddfcc9757-trmg4   0/1     Pending   0          45s
+hello-minikube-6ddfcc9757-ws9hs   1/1     Running   1          6h12m
+hello-minikube-6ddfcc9757-xbvvw   0/1     Pending   0          45s
+
+
+^Cubuntu@ip-10-235-0-199:~$ kubectl exec -it hello-minikube-6ddfcc9757-29drz -- bash
+Error from server (BadRequest): pod hello-minikube-6ddfcc9757-29drz does not have a host assigned
+ubuntu@ip-10-235-0-199:~$ kubectl exec -it hello-minikube-6ddfcc9757-ws9hs -- bash
+root@hello-minikube-6ddfcc9757-ws9hs:/# ls -ltrh
+total 72K
+drwxr-xr-x   2 root root 4.0K Nov 27  2015 home
+drwxr-xr-x   2 root root 4.0K Nov 27  2015 boot
+drwxr-xr-x   2 root root 4.0K Mar 31  2016 srv
+drwxr-xr-x   2 root root 4.0K Mar 31  2016 opt
+drwxr-xr-x   2 root root 4.0K Mar 31  2016 mnt
+drwxr-xr-x   2 root root 4.0K Mar 31  2016 media
+drwxr-xr-x   2 root root 4.0K Apr 21  2016 lib64
+drwxr-xr-x   2 root root 4.0K Apr 21  2016 sbin
+drwx------   2 root root 4.0K Apr 21  2016 root
+drwxr-xr-x   1 root root 4.0K May  2  2016 bin
+drwxr-xr-x   1 root root 4.0K May  2  2016 usr
+drwxr-xr-x   1 root root 4.0K May  2  2016 lib
+drwxrwxrwt   1 root root 4.0K May  2  2016 tmp
+drwxr-xr-x   1 root root 4.0K May  2  2016 var
+-rw-r-----   1 root root  436 May 28  2016 README.md
+dr-xr-xr-x  13 root root    0 Aug  5 00:47 sys
+drwxr-xr-x   1 root root 4.0K Aug  5 00:47 etc
+dr-xr-xr-x 205 root root    0 Aug  5 00:47 proc
+drwxr-xr-x   5 root root  360 Aug  5 00:47 dev
+drwxr-xr-x   1 root root 4.0K Aug  5 00:47 run
+root@hello-minikube-6ddfcc9757-ws9hs:/# ls
+README.md  bin	boot  dev  etc	home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
